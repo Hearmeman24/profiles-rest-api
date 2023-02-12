@@ -24,18 +24,18 @@ PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
 #/usr/local/apps/profiles-rest-api/env/bin/pip install uwsgi==2.0.18
 
 # Run migrations and collectstatic
-cd /usr/local/apps/profiles-rest-api
-$PROJECT_BASE_PATH/env/bin/python manage.py migrate
-$PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
+#cd /usr/local/apps/profiles-rest-api
+#$PROJECT_BASE_PATH/env/bin/python manage.py migrate
+#$PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 
 # Configure supervisor
-cp /usr/local/apps/profiles-rest-api/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
+cp /usr/local/apps/profiles-rest-api/deploy_v2/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
 supervisorctl reread
 supervisorctl update
 supervisorctl restart profiles_api
 
 # Configure nginx
-cp /usr/local/apps/profiles-rest-api/deploy/nginx_profiles_api.conf /etc/nginx/sites-available/profiles_api.conf
+cp /usr/local/apps/profiles-rest-api/deploy_v2/nginx_profiles_api.conf /etc/nginx/sites-available/profiles_api.conf
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/profiles_api.conf /etc/nginx/sites-enabled/profiles_api.conf
 systemctl restart nginx.service
